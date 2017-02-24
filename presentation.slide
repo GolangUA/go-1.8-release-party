@@ -73,6 +73,7 @@ The overhead of deferred function calls has been reduced by nearly half.
 
 .link https://golang.org/cl/29656 Source: CL 29656
 .link https://dave.cheney.net/2016/11/19/go-1-8-toolchain-improvements#defer Defer and cgo improvements
+.link https://github.com/golang/go/issues/14939#issuecomment-249015936 Benchmarks
  
 * Cgo
 
@@ -140,21 +141,7 @@ The number of platforms Go supports, on balance, continues to grow.
 - On OpenBSD, Go now requires OpenBSD 5.9 or later.
 - The Plan 9 port's networking support is now much more complete and matches the behavior of Unix and Windows with respect to deadlines and cancelation.
 - Go 1.8 now only supports OS X 10.8 or later. _This_is_likely_the_last_Go_release_to_support_10.8_. Compiling Go or running binaries on older OS X versions is untested.
-
-* Go 1.8 may be the last to support ARMv5
-
-Supporting ARMv5 has been a problem for several releases. 
-
-Currently we have no ARMv5 builders so have no idea if Go 1.8 actually works on real ARMv5 hardware (we test on ARMv7).
-
-Several companies have complained about loosing ARMv5 support, and several have offered to run a builder -- but there are _still_ no real ARMv5 builders on the dashboard.
-
-If you or your company care about ARMv5, you have to shoulder some of the burden. Contact @bradfitz and set up a builder.
-
-.link https://github.com/golang/go/issues/17082 Proposal: runtime: drop support for linux/armv5E and linux/armv6
-.link https://github.com/golang/go/wiki/DashboardBuilders Dashboard Builders (wiki)
-
-_No_ARMv5_builders_means_ARMv5_support_will_be_dropped_in_Go_1.9_.
+- No ARMv5 builders means ARMv5 support will be dropped in Go 1.9.
 
 * Tool changes
 
@@ -332,74 +319,16 @@ This can be useful when the server knows the client will need to have those resp
 .link https://tools.ietf.org/html/rfc7540#section-8.2 RFC7540 (HTTP/2)
 .link https://habrahabr.ru/post/304422/ Habrahabr: Реализуем http/2 server push с помощью nghttp2
 
-* What's coming up in Go 1.9
-
-* What's coming up in Go 1.9
-
-Before we close, let's quickly touch on some of the things coming up in Go 1.9
-
-_note_: All of these are speculation, nothing is set in stone until code hits the repo.
-
-* Aliases
-
-After being rolled back before the Go 1.8 freeze, aliases are being re-proposed for Go 1.9 in a more limited fashion.
-
-.link https://golang.org/design/18130-type-alias
-
-.play -edit examples/alias.go
-
-* Faster / cheaper runtime.MemStats
-
-The cost of calling `runtime.MemStats` is propotional to the size of the heap; Austin recently timed it at ~1.7ms per Gb.
-
-There is a CL ready to land that reduces it to 20 us per proc (thread servicing a goroutine) which is a much smaller upper bound.
-
-.link https://golang.org/issue/13613
-
-* Improvements to the inliner
-
-Inlining has historically been limited to leaf functions because of the concern of agressive inlining on the call graph.
-
-In support of this Robert Griesemer and Matthew Dempsky have been improving the line number tracking in Go 1.9 to make it flexible enough to lift the restriction on non-leaf functions.
-
-An unnamed intern has been hired to work on the inliner for 1.9.
-
-Josh Bleecher-Snyder has also suggest that the cost model for inlining should be revised to make sure inlining is paying for itself.
-
-.link https://github.com/golang/go/issues/17566 Issue 17566
-
-* A user level poller
-
-Go has used epoll/kqueue/poll/select for _network_sockets_ for years.
-
-Reads/Writes to other file descriptors have traditionally consumed an OS thread during operation
-
-Recently Ian Lance Taylor landed a refactor that broken our the `runtime` polling subsystem and extended to work for the rest of the `os` package.
-
-.link https://go-review.googlesource.com/#/c/36799/ net: refactor poller into new internal/poll package
-.link https://go-review.googlesource.com/#/c/36800/ os: use poller for file I/O 
-
-There is no sign of a programmer accessible poller, yet.
-
-* Official dependency management tool
-
-Finally!
-
-Peter Bourgon, Sam Boyer, Jess Frazelle, and Steve Francia have been working on an _official_ dependency management tool, `dep`.
-
-If you're used to Glide or govendor, you won't be too surprised.
-
-.link https://groups.google.com/forum/#!topic/go-package-management/et1qFUjrkP4 Mailing List Announcement
-
-It's described as _pre_alpha_ at the moment, but you should check it out, and let them know what you think.
-
-.link https://github.com/golang/dep
-
 * Conclusion
 
 .image img/party-gopher.png
 
 Upgrade to Go 1.8, now!
+Released February the 16th, 2017
 
 It's literally the best version of Go, _ever_.
 
+* Link on presentation
+
+.image img/qr_presentation.png
+.link https://github.com/GolangUA/go-1.8-release-party
