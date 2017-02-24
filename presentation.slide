@@ -1,8 +1,9 @@
+What's new in Go 1.8
 Go 1.8 Release Party
-YOUR MEETUP
-16 Feb 2017
+25 Feb 2017
 
-YOUR MEETUP
+Borys Hulii
+SE, SoftServe
 
 * License and Materials
 
@@ -15,18 +16,6 @@ The materials for this presentation are available on GitHub:
 You are encouraged to remix, transform, or build upon the material, providing you distribute your contributions under the same license.
 
 If you have suggestions or corrections to this presentation, please raise [[https://github.com/davecheney/go-1.8-release-party/issues][an issue on the GitHub project]].
-
-* Go 1.8
-
-Go 1.8 is _really_close_ to release. Seriously.
-
-.image img/rocket.jpg _ 350
-
-# .link https://groups.google.com/forum/#!topic/golang-dev/G09HaWfMl6g
-
-Go 1.8 is the 9th release in the Go 1 series. It follows from the previous version, Go 1.7, [[https://blog.golang.org/go1.7][released on the 16th of August, 2016]]
-
-.link http://beta.golang.org/doc/go1.8 Go 1.8 Release Notes (DRAFT)
 
 * What's changed
 
@@ -59,6 +48,7 @@ The new back end, based on static single assignment form (SSA), generates more c
 Garbage collection pauses should be significantly shorter than they were in Go 1.7, usually under 100 microseconds and often as low as 10 microseconds.
 
 .link https://talks.golang.org/2017/state-of-go.slide#34 Garbage Collector Improvements Over Time (ht. @francesc)
+.link https://twitter.com/brianhatfield/status/804355831080751104 Original post in twitter
 
 # More work remains for Go 1.9.
 
@@ -93,6 +83,8 @@ The overhead of cgo calls is reduced by more than half:
 
 This is the result of merging two defers on the standard cgo calling path.
 
+Combined with Austin's improvements to defer's overall performance (CL 29656), the 146ns call to an empty C function in Go 1.7 is now a 56ns call in Go 1.8
+
 .link https://crawshaw.io/blog/go1.8-cgo Less cgo overhead in Go 1.8
 
 * Miscellaneous performance improvements
@@ -102,6 +94,7 @@ Lots of small updates to the standard library.
 There have been optimizations to implementations in the `bytes`, `crypto/aes`, `crypto/cipher`, `crypto/elliptic`, `crypto/sha256`, `crypto/sha512`, `encoding/asn1`, `encoding/csv`, `encoding/hex`, `encoding/json`, `hash/crc32`, `image/color`, `image/draw`, `math`, `math/big`, `reflect`, `regexp`, `runtime`, `strconv`, `strings`, `syscall`, `text/template`, and `unicode/utf8` packages.
 
 .link http://beta.golang.org/doc/go1.8#library Go 1.8 Standard Library Changes
+.link https://www.reddit.com/r/golang/comments/58b4ep/go_18_vs_go_17_performance_improvements/ Reddit: bechmarks 1.7vs1.8, 1.6vs1.8, 1.5vs.1.8
 
 * Compiler changes
 
@@ -110,6 +103,9 @@ There have been optimizations to implementations in the `bytes`, `crypto/aes`, `
 - All backends updated to use the new SSA form. Old "plan9" style compiler backend deleted.
 - Big performance improvements for 32-bit ARM.
 - Easy to add new SSA backends (for values of easy compiler engineers work in). eg, adding MIPS backend was straight forward, SPARC and RISC-V are rumored to be next.
+
+.link https://youtu.be/If8ompI0faY?t=224 Kiev Go MeetUp September 2016
+.link https://go-talks.appspot.com/github.com/dAdAbird/presentations/kiev.meetup.sep.2016/ssa.slide#1 Slides (And slight dip into new backend for the Go compiler)
 
 * New parser
 
@@ -256,12 +252,6 @@ _note_: Due to an oversight this only works with `sync.Mutex`, not `sync.RWMutex
          .          .     18:   const N = 16
          .          .     19:   for n := 0; n < b.N; n++ {
 
-* Homework
-
-Mutex profile is not supported in, [[pkg/profile][https://github.com/pkg/profile]]. yet ...
-
-Who wants to be the first to send me a PR?
-
 * Plugins
 
 Go now supports a “plugin” build mode for generating plugins written in Go, and a new plugin package for loading such plugins at run time.
@@ -326,6 +316,10 @@ Call `Shutdown` when a signal is received:
 
 .code examples/shutdown.go /main\(\) {/,/^}
 
+* Server.Shutdown
+
+.code examples/server.go
+
 * HTTP/2
 
 `http.Response` now satisfies the `http.Pusher` interface.
@@ -334,17 +328,9 @@ Call `Shutdown` when a signal is received:
         Push(target string, opts *PushOptions) error
     }
 
-* More context support
-
-Continuing Go 1.7's adoption of `context.Context` into the standard library, Go 1.8 adds more context support to existing packages:
-
-- The new `Server.Shutdown` takes a context argument.
-- There have been significant additions to the `database/sql` package with context support.
-- All nine of the new `Lookup` methods on the new `net.Resolver` now take a context.
-
-* Minor changes
-
-.link http://beta.golang.org/doc/go1.8#minor_library_changes Minor library changes
+This can be useful when the server knows the client will need to have those responses available in order to fully process the response to the original request.
+.link https://tools.ietf.org/html/rfc7540#section-8.2 RFC7540 (HTTP/2)
+.link https://habrahabr.ru/post/304422/ Habrahabr: Реализуем http/2 server push с помощью nghttp2
 
 * What's coming up in Go 1.9
 
