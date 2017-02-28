@@ -54,6 +54,32 @@ Garbage collection pauses should be significantly shorter than they were in Go 1
 
 # .link https://github.com/golang/proposal/blob/master/design/17503-eliminate-rescan.md Eliminating Stop-The-World Stack Re-scanning (Design doc)
 
+* Garbage Collector (Go 1.4.3 vs Go 1.5)
+
+From ~300 to ~40 milliseconds
+
+.image img/GC_14vs15.png 500 _
+
+* Garbage Collector (Go 1.5 vs Go 1.6)
+ 
+From ~40 to ~10 milliseconds
+
+.image img/GC_15vs16.jpg 500 _
+
+* Garbage Collector (Go 1.6 vs Go 1.6.3)
+ 
+From ~10 to ~40 milliseconds
+
+.image img/GC_16vs163.jpg 500 _
+
+* Garbage Collector (Go 1.6.3 vs Go 1.7)
+ 
+.image img/GC_163vs17.jpg 500 _
+
+* Garbage Collector (Go 1.7.3 vs Go 1.8 beta1)
+ 
+.image img/GC_17vs18b.jpg 500 _
+
 * Defer
 
 The overhead of deferred function calls has been reduced by nearly half.
@@ -97,7 +123,20 @@ There have been optimizations to implementations in the `bytes`, `crypto/aes`, `
 .link http://beta.golang.org/doc/go1.8#library Go 1.8 Standard Library Changes
 .link https://www.reddit.com/r/golang/comments/58b4ep/go_18_vs_go_17_performance_improvements/ Reddit: bechmarks 1.7vs1.8, 1.6vs1.8, 1.5vs.1.8
 
-* Compiler changes
+* Go 1.7 vs Go 1.8
+
+.image img/17vs18.png 570 _
+
+* Go 1.6 vs Go 1.8
+
+.image img/16vs18.png 570 _
+
+* Go 1.5 vs Go 1.8
+
+.image img/15vs18.png 570 _
+
+
+Compiler changes
 
 * SSA backend
 
@@ -303,9 +342,9 @@ Call `Shutdown` when a signal is received:
 
 .code examples/shutdown.go /main\(\) {/,/^}
 
-* Server.Shutdown
+# * Server.Shutdown
 
-.code examples/server.go
+# .code examples/server.go
 
 * HTTP/2
 
