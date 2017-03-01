@@ -17,15 +17,15 @@ You are encouraged to remix, transform, or build upon the material, providing yo
 
 If you have suggestions or corrections to this presentation, please raise [[https://github.com/davecheney/go-1.8-release-party/issues][an issue on the GitHub project]].
 
-* What's changed
+# * What's changed
 
-So, what's happened in the last six months since Go 1.7?
+# So, what's happened in the last six months since Go 1.7?
 
-- Performance
-- Compiler changes
-- Tool changes
-- Runtime changes
-- Changes to the standard library
+# - Performance
+# - Compiler changes
+# - Tool changes
+# - Runtime changes
+# - Changes to the standard library
 
 * Performance
 
@@ -68,16 +68,18 @@ From ~40 to ~10 milliseconds
 
 * Garbage Collector (Go 1.6 vs Go 1.6.3)
  
-From ~10 to ~40 milliseconds
+From ~10 to ~3.5 milliseconds
 
 .image img/GC_16vs163.jpg 500 _
 
 * Garbage Collector (Go 1.6.3 vs Go 1.7)
  
+From ~3.5 to ~3 milliseconds
 .image img/GC_163vs17.jpg 500 _
 
 * Garbage Collector (Go 1.7.3 vs Go 1.8 beta1)
  
+From ~3 to less then 1 millisecond
 .image img/GC_17vs18b.jpg 500 _
 
 * Defer
