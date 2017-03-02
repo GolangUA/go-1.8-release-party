@@ -167,12 +167,6 @@ About a 12-15% improvement compared to Go 1.7
 
 .image https://dave.cheney.net/wp-content/uploads/2016/11/Screenshot-2016-11-19-at-08.57.10.png
 
-* Struct conversion
-
-When explicitly converting a value from one struct type to another, as of Go 1.8 the tags are ignored.
-
-.play examples/struct_conversion.go /START OMIT/,/END OMIT/
-
 * Ports
 
 The number of platforms Go supports, on balance, continues to grow.
@@ -308,6 +302,12 @@ Demo video: [[https://twitter.com/francesc/status/827851085943566336][twitter.co
 
 Source code: [[https://github.com/campoy/golang-plugins][github.com/campoy/golang-plugins]]
 
+* Struct conversion
+
+When explicitly converting a value from one struct type to another, as of Go 1.8 the tags are ignored.
+
+.play examples/struct_conversion.go /START OMIT/,/END OMIT/
+
 * os.Executable
 
 `os.Executable` returns an absolute path to the currently running program.
@@ -343,6 +343,10 @@ A long requested feature, graceful shutdown of a `http.Server` was added in Go 1
 Call `Shutdown` when a signal is received:
 
 .code examples/shutdown.go /main\(\) {/,/^}
+
+* HTTP shutdown demo
+
+Source code: [[https://github.com/8tomat8/ShutdownDemo][github.com/8tomat8/ShutdownDemo]]
 
 # * Server.Shutdown
 
